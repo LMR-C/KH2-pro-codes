@@ -40,11 +40,12 @@ and type : <code>LMR-C/KH2-pro-codes</code> and press <code>Install</code>. Repe
 
 <h2>How to toggle pro codes ?</h2>
 <p>You can enabled/disable most of pro codes in game with input combination. Once you performed one a log is printed in the console to notify you the state of the code.<br/>
+  Please hold buttons 1 for second to make it work correctly</br>
   To see the console:<br/>
 <B>PC</B> : Press <code>F2</code><br/>
 <B>PCSX2-EX</B> : (if the console doesn't show up) <code>Misc > Show Console</code></p>
 <ul>
-  <li><B>default status</B> : <code>L3+ ✕</code></li>
+  <li><B>default status</B> : <code>L3 + ✕</code></li>
   <li><B>Hp slip</B> : <code>L3 + △</code></li>
   <li><B>Zero defense</B> : <code>L3 + ◯</code></li>
   <li><B>MP slip</B> : <code>L3 + ▢</code></li>
@@ -72,7 +73,7 @@ nevertheless if you see a bug please report it <a href = https://discord.gg/eXX8
 <h3>Known issues</h3>
 <ul>
   <li><B>Get all growth ability</B> : All growth abilities quality of life needs to be reset between saves loads. <br/>
-    i.e: if you die and want to load a save: disable it load and then enable it</li>
+    i.e: if you die and want to load a save: disable it load and then enable it. If you already enabled it on the save you want to load just ignore that</li>
   <li><B>ability limit</B> : You can enable as much ability as you want but once you get out of the menu the mod will disable any ability after the 30th enabled (in the game memory order) so keep an eye on your number of equiped abilities
   with <code>R3&nbsp+&nbspL1</code></li>
   <li><B>no cure</B> : For randomnizer : no cure toggling works as intended only for the first save file. It won't works if
