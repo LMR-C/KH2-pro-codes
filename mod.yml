@@ -1,0 +1,10 @@
+title: pro codes
+originalAuthor: LMR
+game: Kh2
+description: "Pro code from KH3 adapted to KH2FM \n\nHow to toggle pro codes.\ndefault status : L3+ ✕\nHp slip : L3 + △\nZero defense : L3 + ◯\nMP slip : L3 + ▢\nno battle items : L3 + R1\nno summon : L3 + L2\nno form : L3 + L1\nno cure : L3 + R2\nno team attacks : L3 + R3 + △\nability limit : L3 + R3 + ◯\nno mickey : disable the mod in the mod manager and restart the game\nno reaction command : disable the mod in the mod manager, restart the game and when you're in game press:L3 + R3 + ▢"
+logo: icon.png
+assets:
+  - name: scripts/F266B00B_pro_codes.lua
+    method: copy
+    source:
+      - name: F266B00B_pro_codes.lua
