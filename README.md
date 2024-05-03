@@ -7,7 +7,7 @@
 You'll find next to this the codes list and some quality of life features.</p>
 
 <h2>Compatibility</h2>
-<p>Pro codes are fully compatible with the KH2 randomnizer ! (don't forget to place forms levels on vanilla or junk)</br>
+<p>Pro codes are fully compatible with the KH2 randomnizer ! Just place the 3 parts of the mod above your seed (don't forget to place forms levels on vanilla or junk during seed creation)</br>
 I didn't test it with other mods but it should be compatible with any mod that don't modify those things:</p>
 <ul>
   <li><B>03system.bin</B></li>
