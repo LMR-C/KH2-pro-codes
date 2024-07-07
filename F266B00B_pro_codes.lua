@@ -30,7 +30,7 @@ is_ability_printed = false
 
 is_no_rc = true
 
-is_full_ability = false
+is_full_ability = true
 
 has_to_init = true
 
@@ -60,60 +60,68 @@ end
 summon_cost = {}
 
 function _OnInit()
+end
+
+function address_init()
     if (GAME_ID == 0xF266B00B or GAME_ID == 0xFAF99301) and ENGINE_TYPE == "ENGINE" then --PCSX2
         ConsolePrint("PS2 version detected")
-        input = 0x2034D4DC
-        battle_state_address = 0x21C61958 --pas sur
-        cursor2 = 0x21C5F878
+        Sys3Pointer = 0x1C61AF8
+        Btl0Pointer = 0x1C61AFC
+        Sys3 = ReadLong(Sys3Pointer)
+	Btl0 = ReadLong(Btl0Pointer)
+        Save = 0x032BB30
+        battle_state_address = 0x21C61958
         pause_status_address = 0x0347E08
         is_controllable_address = 0x1D48DB8
+        input = 0x2034D4DC
+        cursor2 = 0x21C5F878
         sora_unit_stat = 0x1C6C750
         party1_unit_stat = 0x1C6C4E8
         party2_unit_stat = 0x1C6C280
-        sora_level_stat = 0x1D0B6A8
-        donald_level_stat = 0x1D0BCDC
-        goofy_level_stat = 0x1D0C310
-        mickey_level_stat = 0x1D0C944
-        auron_level_stat = 0x1D0CF78
-        mulan_level_stat = 0x1D0D5AC
-        aladdin_level_stat = 0x1D0DBE0
-        jack_sparrow_level_stat = 0x1D0E214
-        beast_level_stat = 0x1D0E848
-        jack_skellington_level_stat = 0x1D0EE7C
-        simba_level_stat = 0x1D0F4B0
-        tron_level_stat = 0x1D0FAE4
-        riku_level_stat = 0x1D10118
-        sora_party_stat = 0x032E020
-        donald_party_stat = 0x032E134
-        goofy_party_stat = 0x032E248
-        mickey_party_stat = 0x032E35C
-        auron_party_stat = 0x032E470
-        mulan_party_stat = 0x032E584
-        aladdin_party_stat = 0x032E698
-        jack_sparrow_party_stat = 0x032E7AC
-        beast_party_stat = 0x032E8C0
-        jack_skellington_party_stat = 0x032E9D4
-        simba_party_stat = 0x032EAE8
-        tron_party_stat = 0x032EBFC
-        riku_party_stat = 0x032ED10
-        valor_cost = 0x1CCB6E0
-        wisdom_cost = 0x1CCB710
-        limit_cost = 0x1CD2D30
-        master_cost = 0x1CCB7A0
-        final_cost = 0x1CCB7D0
-        auto_valor_cost = 0x1CD1740
-        auto_wisdom_cost = 0x1CD1770
-        auto_limit_cost = 0x1CD2D60
-        auto_master_cost = 0x1CD17A0
-        auto_final_cost = 0x1CD17D0
-        chiken_little_cost = 0x1CD0480
-        genie_cost = 0x1CCC370
-        stitch_cost = 0x1CCC3A0
-        peter_pan_cost = 0x1CCEAA0
-        sora_cure = 0x032F0C7
-        cure1_flag = 0x032D861
-        cure2_flag = 0x032D849
-        cure3_flag = 0x032D850
+        sora_level_stat = Btl0 + 0x25928
+        donald_level_stat = Btl0 + 0x25F5C
+        goofy_level_stat = Btl0 + 0x26590
+        mickey_level_stat = Btl0 + 0x26BC4
+        auron_level_stat = Btl0 + 0x271F8
+        mulan_level_stat = Btl0 + 0x2782C
+        aladdin_level_stat = Btl0 + 0x27E60
+        jack_sparrow_level_stat = Btl0 + 0x28494
+        beast_level_stat = 	Btl0 + 0x28AC8
+        jack_skellington_level_stat = Btl0 + 0x290FC
+        simba_level_stat = Btl0 + 0x29730
+        tron_level_stat = Btl0 + 0x29D64
+        riku_level_stat = Btl0 + 0x2A398
+        sora_party_stat = Save + 0x24F0
+        donald_party_stat = Save + 0x2604
+        goofy_party_stat = Save + 0x2718
+        mickey_party_stat = Save + 0x282C
+        auron_party_stat = Save + 0x2940
+        mulan_party_stat = Save + 0x2A54
+        aladdin_party_stat = Save + 0x2B68
+        jack_sparrow_party_stat = Save + 0x2C7C
+        beast_party_stat = Save + 0x2D90
+        jack_skellington_party_stat = Save + 0x2EA4
+        simba_party_stat = Save + 0x2FB8
+        tron_party_stat = Save + 0x30CC
+        riku_party_stat = Save + 0x31E0
+        valor_cost = Sys3 + 0x03E0
+        wisdom_cost = Sys3 + 0x0410
+        limit_cost = Sys3 + 0x7A30
+        master_cost = Sys3 + 0x04A0
+        final_cost = Sys3 + 0x04D0
+        auto_valor_cost = Sys3 + 0x6440
+        auto_wisdom_cost = Sys3 + 0x6470
+        auto_limit_cost = Sys3 + 0x7A60
+        auto_master_cost = Sys3 + 0x64A0
+        auto_final_cost = Sys3 + 0x64D0
+        chiken_little_cost = Sys3 + 0x5180
+        genie_cost = Sys3 + 0x10A0
+        stitch_cost = Sys3 + 0x1070
+        peter_pan_cost = Sys3 + 0x37A0
+        sora_cure = Save + 0x3597
+        cure1_flag = Save + 0x1D31
+        cure2_flag = Save + 0x1D19
+        cure3_flag = Save + 0x1D20
         L3_triangle = 0xEFFD
         L3_square = 0x7FFD
         L3_circle = 0xDFFD
@@ -128,79 +136,233 @@ function _OnInit()
         R3_R1 = 0xF7FB
         R3_L1 = 0xFBFB
     elseif GAME_ID == 0x431219CC and ENGINE_TYPE == 'BACKEND' then --PC
-        ConsolePrint("PC version detected")
-        offset = 0x56454E
-        input = 0x711488 - offset
-        battle_state_address = 0x2A0EB04 - offset
-        cursor2 = 0x2A0E0BC - offset
-        pause_status_address = 0x0AB9038 + 0x40 - offset
-        is_controllable_address = 0x2A148A8 + 0x40 - offset
-        sora_unit_stat = 0x2A20C58 + 0x40 - offset
-        party1_unit_stat = 0x2A209E0 + 0x40 - offset
-        party2_unit_stat = 0x2A20768 + 0x40 - offset
-        sora_level_stat = 0x2A9A168 + 0x40 - offset
-        donald_level_stat = 0x2A9A79C + 0x40 - offset
-        goofy_level_stat = 0x2A9ADD0 + 0x40 - offset
-        mickey_level_stat = 0x2A9B404 + 0x40 - offset
-        auron_level_stat = 0x2A9BA38 + 0x40 -offset
-        mulan_level_stat = 0x2A9C06C + 0x40 - offset
-        aladdin_level_stat = 0x2A9C6A0 + 0x40 - offset
-        jack_sparrow_level_stat = 0x2A9CCD4 + 0x40 - offset
-        beast_level_stat = 0x2A9D308 + 0x40 - offset
-        jack_skellington_level_stat = 0x2A9D93C + 0x40 - offset
-        simba_level_stat = 0x2A9DF70 + 0x40 - offset
-        tron_level_stat = 0x2A9E5A4 + 0x40 - offset
-        riku_level_stat = 0x2A9EBD8 + 0x40 - offset
-        sora_party_stat = 0x09A9560 + 0x40 - offset
-        donald_party_stat = 0x09A9674 + 0x40 - offset
-        goofy_party_stat = 0x09A9788 + 0x40 - offset
-        mickey_party_stat = 0x09A989C + 0x40 - offset
-        auron_party_stat = 0x09A99B0 + 0x40 - offset
-        mulan_party_stat = 0x09A9AC4 + 0x40 - offset
-        aladdin_party_stat = 0x09A9BD8 + 0x40 - offset
-        jack_sparrow_party_stat = 0x09A9CEC + 0x40 - offset
-        beast_party_stat = 0x09A9E00 + 0x40 - offset
-        jack_skellington_party_stat = 0x09A9F14 + 0x40 - offset
-        simba_party_stat = 0x09AA028 + 0x40 - offset
-        tron_party_stat = 0x09AA13C + 0x40 - offset
-        riku_party_stat = 0x09AA250 + 0x40 - offset
-        valor_cost = 0x2A5A190 + 0x40 - offset
-        wisdom_cost = 0x2A5A1C0 + 0x40 - offset
-        limit_cost = 0x2A617E0 + 0x40 - offset
-        master_cost = 0x2A5A250 + 0x40 - offset
-        final_cost = 0x2A5A280 + 0x40 - offset
-        auto_valor_cost = 0x2A601F0 + 0x40 - offset
-        auto_wisdom_cost = 0x2A60220 + 0x40 - offset
-        auto_limit_cost = 0x2A61810 + 0x40 - offset
-        auto_master_cost = 0x2A60250 + 0x40 - offset
-        auto_final_cost = 0x2A60280 + 0x40 - offset
-        chiken_little_cost = 0x2A5EF30 + 0x40 - offset
-        genie_cost = 0x2A5AE20 + 0x40 - offset
-        stitch_cost = 0x2A5AE50 + 0x40 - offset
-        peter_pan_cost = 0x2A5D550 + 0x40 - offset
-        sora_cure = 0x09AA607 + 0x40 - offset
-        cure1_flag = 0x09A8DA1 +0x40 - offset
-        cure2_flag = 0x09A8D89 + 0x40 - offset
-        cure3_flag = 0x09A8D90 + 0x40 -offset
-        L3_triangle = 0x1002
-        L3_square = 0x8002
-        L3_circle = 0x2002
-        L3_cross = 0x4002
-        L3_L1 = 0x402
-        L3_L2 = 0x102
-        L3_R1 = 0x802
-        L3_R2 = 0x202
-        L3_R3_triangle = 0x1006
-        L3_R3_circle = 0x2006
-        L3_R3_square = 0x8006
-        R3_R1 = 0x804
-        R3_L1 = 0x0404
+        if ReadString(0x09A92F0,4) == 'KH2J' then --EGS
+            ConsolePrint("PC version (EGS) detected")
+            Sys3Pointer = 0x2AE5890
+	    Btl0Pointer = 0x2AE5898
+            Sys3 = ReadLong(Sys3Pointer)
+	    Btl0 = ReadLong(Btl0Pointer)
+            Save = 0x09A92F0
+	    Now = 0x0716DF8
+            battle_state_address = 0x2A10E44
+            pause_status_address = 0x0ABB2B8
+            is_controllable_address = 0x2A16C28
+            input = Now - 0x3970
+            cursor2 = 0x2A103FC
+            sora_unit_stat = 0x2A22FD8
+            party1_unit_stat = sora_unit_stat - 0x278
+            party2_unit_stat = party1_unit_stat - 0x278
+            sora_level_stat = Btl0 + 0x25928
+            donald_level_stat = Btl0 + 0x25F5C
+            goofy_level_stat = Btl0 + 0x26590
+            mickey_level_stat = Btl0 + 0x26BC4
+            auron_level_stat = Btl0 + 0x271F8
+            mulan_level_stat = Btl0 + 0x2782C
+            aladdin_level_stat = Btl0 + 0x27E60
+            jack_sparrow_level_stat = Btl0 + 0x28494
+            beast_level_stat = 	Btl0 + 0x28AC8
+            jack_skellington_level_stat = Btl0 + 0x290FC
+            simba_level_stat = Btl0 + 0x29730
+            tron_level_stat = Btl0 + 0x29D64
+            riku_level_stat = Btl0 + 0x2A398
+            sora_party_stat = Save + 0x24F0
+            donald_party_stat = Save + 0x2604
+            goofy_party_stat = Save + 0x2718
+            mickey_party_stat = Save + 0x282C
+            auron_party_stat = Save + 0x2940
+            mulan_party_stat = Save + 0x2A54
+            aladdin_party_stat = Save + 0x2B68
+            jack_sparrow_party_stat = Save + 0x2C7C
+            beast_party_stat = Save + 0x2D90
+            jack_skellington_party_stat = Save + 0x2EA4
+            simba_party_stat = Save + 0x2FB8
+            tron_party_stat = Save + 0x30CC
+            riku_party_stat = Save + 0x31E0
+            valor_cost = Sys3 + 0x03E0
+            wisdom_cost = Sys3 + 0x0410
+            limit_cost = Sys3 + 0x7A30
+            master_cost = Sys3 + 0x04A0
+            final_cost = Sys3 + 0x04D0
+            auto_valor_cost = Sys3 + 0x6440
+            auto_wisdom_cost = Sys3 + 0x6470
+            auto_limit_cost = Sys3 + 0x7A60
+            auto_master_cost = Sys3 + 0x64A0
+            auto_final_cost = Sys3 + 0x64D0
+            chiken_little_cost = Sys3 + 0x5180
+            genie_cost = Sys3 + 0x10A0
+            stitch_cost = Sys3 + 0x1070
+            peter_pan_cost = Sys3 + 0x37A0
+            sora_cure = Save + 0x3597
+            cure1_flag = Save + 0x1D31
+            cure2_flag = Save + 0x1D19
+            cure3_flag = Save + 0x1D20
+            L3_triangle = 0x1002
+            L3_square = 0x8002
+            L3_circle = 0x2002
+            L3_cross = 0x4002
+            L3_L1 = 0x402
+            L3_L2 = 0x102
+            L3_R1 = 0x802
+            L3_R2 = 0x202
+            L3_R3_triangle = 0x1006
+            L3_R3_circle = 0x2006
+            L3_R3_square = 0x8006
+            R3_R1 = 0x804
+            R3_L1 = 0x0404
+	    elseif ReadString(0x09A9830,4) == 'KH2J' then --Steam Global
+            ConsolePrint("PC version (Steam Global) detected")
+            Sys3Pointer = 0x2AE5DD0
+	    Btl0Pointer = 0x2AE5DD8
+            Sys3 = ReadLong(Sys3Pointer)
+	    Btl0 = ReadLong(Btl0Pointer)
+            Save = 0x09A9830
+	    Now = 0x0717008
+            battle_state_address = 0x2A11384
+            pause_status_address = 0x0ABB7F8
+            is_controllable_address = 0x2A17168
+            input = Now - 0x3970
+            cursor2 = 0x2A1093C
+            sora_unit_stat = 0x2A23518
+            party1_unit_stat = sora_unit_stat - 0x278
+            party2_unit_stat = party1_unit_stat - 0x278
+            sora_level_stat = Btl0 + 0x25928
+            donald_level_stat = Btl0 + 0x25F5C
+            goofy_level_stat = Btl0 + 0x26590
+            mickey_level_stat = Btl0 + 0x26BC4
+            auron_level_stat = Btl0 + 0x271F8
+            mulan_level_stat = Btl0 + 0x2782C
+            aladdin_level_stat = Btl0 + 0x27E60
+            jack_sparrow_level_stat = Btl0 + 0x28494
+            beast_level_stat = 	Btl0 + 0x28AC8
+            jack_skellington_level_stat = Btl0 + 0x290FC
+            simba_level_stat = Btl0 + 0x29730
+            tron_level_stat = Btl0 + 0x29D64
+            riku_level_stat = Btl0 + 0x2A398
+            sora_party_stat = Save + 0x24F0
+            donald_party_stat = Save + 0x2604
+            goofy_party_stat = Save + 0x2718
+            mickey_party_stat = Save + 0x282C
+            auron_party_stat = Save + 0x2940
+            mulan_party_stat = Save + 0x2A54
+            aladdin_party_stat = Save + 0x2B68
+            jack_sparrow_party_stat = Save + 0x2C7C
+            beast_party_stat = Save + 0x2D90
+            jack_skellington_party_stat = Save + 0x2EA4
+            simba_party_stat = Save + 0x2FB8
+            tron_party_stat = Save + 0x30CC
+            riku_party_stat = Save + 0x31E0
+            valor_cost = Sys3 + 0x03E0
+            wisdom_cost = Sys3 + 0x0410
+            limit_cost = Sys3 + 0x7A30
+            master_cost = Sys3 + 0x04A0
+            final_cost = Sys3 + 0x04D0
+            auto_valor_cost = Sys3 + 0x6440
+            auto_wisdom_cost = Sys3 + 0x6470
+            auto_limit_cost = Sys3 + 0x7A60
+            auto_master_cost = Sys3 + 0x64A0
+            auto_final_cost = Sys3 + 0x64D0
+            chiken_little_cost = Sys3 + 0x5180
+            genie_cost = Sys3 + 0x10A0
+            stitch_cost = Sys3 + 0x1070
+            peter_pan_cost = Sys3 + 0x37A0
+            sora_cure = Save + 0x3597
+            cure1_flag = Save + 0x1D31
+            cure2_flag = Save + 0x1D19
+            cure3_flag = Save + 0x1D20
+            L3_triangle = 0x1002
+            L3_square = 0x8002
+            L3_circle = 0x2002
+            L3_cross = 0x4002
+            L3_L1 = 0x402
+            L3_L2 = 0x102
+            L3_R1 = 0x802
+            L3_R2 = 0x202
+            L3_R3_triangle = 0x1006
+            L3_R3_circle = 0x2006
+            L3_R3_square = 0x8006
+            R3_R1 = 0x804
+            R3_L1 = 0x0404
+	    elseif ReadString(0x09A8830,4) == 'KH2J' then --Steam JP
+            ConsolePrint("PC version (Steam JP) detected")
+	    Sys3Pointer = 0x2AE4DD0
+	    Btl0Pointer = 0x2AE4DD8
+            Sys3 = ReadLong(Sys3Pointer)
+	    Btl0 = ReadLong(Btl0Pointer)
+	    Save = 0x09A8830
+	    Now = 0x0716008
+            battle_state_address = 0x2A10384
+            pause_status_address = 0x0ABA7F8
+            is_controllable_address = 0x2A16168
+            input = Now - 0x3970
+            cursor2 = 0x2A0F93C
+            sora_unit_stat = 0x2A22518
+            party1_unit_stat = sora_unit_stat - 0x278
+            party2_unit_stat = party1_unit_stat - 0x278
+            sora_level_stat = Btl0 + 0x25928
+            donald_level_stat = Btl0 + 0x25F5C
+            goofy_level_stat = Btl0 + 0x26590
+            mickey_level_stat = Btl0 + 0x26BC4
+            auron_level_stat = Btl0 + 0x271F8
+            mulan_level_stat = Btl0 + 0x2782C
+            aladdin_level_stat = Btl0 + 0x27E60
+            jack_sparrow_level_stat = Btl0 + 0x28494
+            beast_level_stat = 	Btl0 + 0x28AC8
+            jack_skellington_level_stat = Btl0 + 0x290FC
+            simba_level_stat = Btl0 + 0x29730
+            tron_level_stat = Btl0 + 0x29D64
+            riku_level_stat = Btl0 + 0x2A398
+            sora_party_stat = Save + 0x24F0
+            donald_party_stat = Save + 0x2604
+            goofy_party_stat = Save + 0x2718
+            mickey_party_stat = Save + 0x282C
+            auron_party_stat = Save + 0x2940
+            mulan_party_stat = Save + 0x2A54
+            aladdin_party_stat = Save + 0x2B68
+            jack_sparrow_party_stat = Save + 0x2C7C
+            beast_party_stat = Save + 0x2D90
+            jack_skellington_party_stat = Save + 0x2EA4
+            simba_party_stat = Save + 0x2FB8
+            tron_party_stat = Save + 0x30CC
+            riku_party_stat = Save + 0x31E0
+            valor_cost = Sys3 + 0x03E0
+            wisdom_cost = Sys3 + 0x0410
+            limit_cost = Sys3 + 0x7A30
+            master_cost = Sys3 + 0x04A0
+            final_cost = Sys3 + 0x04D0
+            auto_valor_cost = Sys3 + 0x6440
+            auto_wisdom_cost = Sys3 + 0x6470
+            auto_limit_cost = Sys3 + 0x7A60
+            auto_master_cost = Sys3 + 0x64A0
+            auto_final_cost = Sys3 + 0x64D0
+            chiken_little_cost = Sys3 + 0x5180
+            genie_cost = Sys3 + 0x10A0
+            stitch_cost = Sys3 + 0x1070
+            peter_pan_cost = Sys3 + 0x37A0
+            sora_cure = Save + 0x3597
+            cure1_flag = Save + 0x1D31
+            cure2_flag = Save + 0x1D19
+            cure3_flag = Save + 0x1D20
+            L3_triangle = 0x1002
+            L3_square = 0x8002
+            L3_circle = 0x2002
+            L3_cross = 0x4002
+            L3_L1 = 0x402
+            L3_L2 = 0x102
+            L3_R1 = 0x802
+            L3_R2 = 0x202
+            L3_R3_triangle = 0x1006
+            L3_R3_circle = 0x2006
+            L3_R3_square = 0x8006
+            R3_R1 = 0x804
+            R3_L1 = 0x0404
+        end
     end
 end
 
 function _OnFrame()
     if has_to_init == true and frame == 110 then
-        if ReadInt(sora_level_stat) > 40 then
+        address_init()
+        if ReadInt(sora_level_stat, true) > 40 then
             ConsolePrint("Rando detected")
             rando_offset = 0x580
         else
@@ -215,7 +377,8 @@ function _OnFrame()
     end
 
     frame = frame + 1
-
+    
+    if has_to_init == false then
     battle_state = ReadInt(battle_state_address)
 	pause_status = ReadInt(pause_status_address)
 	is_controllable = ReadByte(is_controllable_address)
@@ -332,6 +495,7 @@ function toggle_hp_slip()
             ConsolePrint("HP slip enabled")
         end
     end
+end
 end
 
 
@@ -476,34 +640,34 @@ end
 function apply_zero_defense()
     for i = 0, 98 do
         if characters_level_stat[1][i + 1][3] == nil then
-            characters_level_stat[1][i + 1][3] = ReadByte(sora_level_stat + 0x6 + 0x10*i + rando_offset)
-            characters_level_stat[2][i + 1][3] = ReadByte(donald_level_stat + 0x6 + 0x10*i + rando_offset)
-            characters_level_stat[3][i + 1][3] = ReadByte(goofy_level_stat + 0x6 + 0x10*i + rando_offset)
-            characters_level_stat[4][i + 1][3] = ReadByte(mickey_level_stat + 0x6 + 0x10*i + rando_offset)
-            characters_level_stat[5][i + 1][3] = ReadByte(auron_level_stat + 0x6 + 0x10*i + rando_offset)
-            characters_level_stat[6][i + 1][3] = ReadByte(mulan_level_stat + 0x6 + 0x10*i + rando_offset)
-            characters_level_stat[7][i + 1][3] = ReadByte(aladdin_level_stat + 0x6 + 0x10*i + rando_offset)
-            characters_level_stat[8][i + 1][3] = ReadByte(jack_sparrow_level_stat + 0x6 + 0x10*i + rando_offset)
-            characters_level_stat[9][i + 1][3] = ReadByte(beast_level_stat + 0x6 + 0x10*i + rando_offset)
-            characters_level_stat[10][i + 1][3] = ReadByte(jack_skellington_level_stat + 0x6 + 0x10*i + rando_offset)
-            characters_level_stat[11][i + 1][3] = ReadByte(simba_level_stat + 0x6 + 0x10*i + rando_offset)
-            characters_level_stat[12][i + 1][3] = ReadByte(tron_level_stat + 0x6 + 0x10*i + rando_offset)
-            characters_level_stat[13][i + 1][3] = ReadByte(riku_level_stat + 0x6 + 0x10*i + rando_offset)
+            characters_level_stat[1][i + 1][3] = ReadByte(sora_level_stat + 0x6 + 0x10*i + rando_offset, true)
+            characters_level_stat[2][i + 1][3] = ReadByte(donald_level_stat + 0x6 + 0x10*i + rando_offset, true)
+            characters_level_stat[3][i + 1][3] = ReadByte(goofy_level_stat + 0x6 + 0x10*i + rando_offset, true)
+            characters_level_stat[4][i + 1][3] = ReadByte(mickey_level_stat + 0x6 + 0x10*i + rando_offset, true)
+            characters_level_stat[5][i + 1][3] = ReadByte(auron_level_stat + 0x6 + 0x10*i + rando_offset, true)
+            characters_level_stat[6][i + 1][3] = ReadByte(mulan_level_stat + 0x6 + 0x10*i + rando_offset, true)
+            characters_level_stat[7][i + 1][3] = ReadByte(aladdin_level_stat + 0x6 + 0x10*i + rando_offset, true)
+            characters_level_stat[8][i + 1][3] = ReadByte(jack_sparrow_level_stat + 0x6 + 0x10*i + rando_offset, true)
+            characters_level_stat[9][i + 1][3] = ReadByte(beast_level_stat + 0x6 + 0x10*i + rando_offset, true)
+            characters_level_stat[10][i + 1][3] = ReadByte(jack_skellington_level_stat + 0x6 + 0x10*i + rando_offset, true)
+            characters_level_stat[11][i + 1][3] = ReadByte(simba_level_stat + 0x6 + 0x10*i + rando_offset, true)
+            characters_level_stat[12][i + 1][3] = ReadByte(tron_level_stat + 0x6 + 0x10*i + rando_offset, true)
+            characters_level_stat[13][i + 1][3] = ReadByte(riku_level_stat + 0x6 + 0x10*i + rando_offset, true)
 
         end
-        WriteByte(sora_level_stat + 0x6 + 0x10*i + rando_offset, 0)
-        WriteByte(donald_level_stat + 0x6 + 0x10*i + rando_offset, 0)
-        WriteByte(goofy_level_stat + 0x6 + 0x10*i + rando_offset, 0)
-        WriteByte(mickey_level_stat + 0x6 + 0x10*i + rando_offset, 0)
-        WriteByte(auron_level_stat + 0x6 + 0x10*i + rando_offset, 0)
-        WriteByte(mulan_level_stat + 0x6 + 0x10*i + rando_offset, 0)
-        WriteByte(aladdin_level_stat + 0x6 + 0x10*i + rando_offset, 0)
-        WriteByte(jack_sparrow_level_stat + 0x6 + 0x10*i + rando_offset, 0)
-        WriteByte(beast_level_stat + 0x6 + 0x10*i + rando_offset, 0)
-        WriteByte(jack_skellington_level_stat + 0x6 + 0x10*i + rando_offset, 0)
-        WriteByte(simba_level_stat + 0x6 + 0x10*i + rando_offset, 0)
-        WriteByte(tron_level_stat + 0x6 + 0x10*i + rando_offset, 0)
-        WriteByte(riku_level_stat + 0x6 + 0x10*i + rando_offset, 0)
+        WriteByte(sora_level_stat + 0x6 + 0x10*i + rando_offset, 0, true)
+        WriteByte(donald_level_stat + 0x6 + 0x10*i + rando_offset, 0, true)
+        WriteByte(goofy_level_stat + 0x6 + 0x10*i + rando_offset, 0, true)
+        WriteByte(mickey_level_stat + 0x6 + 0x10*i + rando_offset, 0, true)
+        WriteByte(auron_level_stat + 0x6 + 0x10*i + rando_offset, 0, true)
+        WriteByte(mulan_level_stat + 0x6 + 0x10*i + rando_offset, 0, true)
+        WriteByte(aladdin_level_stat + 0x6 + 0x10*i + rando_offset, 0, true)
+        WriteByte(jack_sparrow_level_stat + 0x6 + 0x10*i + rando_offset, 0, true)
+        WriteByte(beast_level_stat + 0x6 + 0x10*i + rando_offset, 0, true)
+        WriteByte(jack_skellington_level_stat + 0x6 + 0x10*i + rando_offset, 0, true)
+        WriteByte(simba_level_stat + 0x6 + 0x10*i + rando_offset, 0, true)
+        WriteByte(tron_level_stat + 0x6 + 0x10*i + rando_offset, 0, true)
+        WriteByte(riku_level_stat + 0x6 + 0x10*i + rando_offset, 0, true)
     end
 end
 
@@ -528,89 +692,89 @@ end
 function apply_default_status()
     for i = 0, 98 do
         if characters_level_stat[1][i + 1][1] == nil then
-            characters_level_stat[1][i + 1][1] = ReadByte(sora_level_stat + 0x4 + 0x10*i + rando_offset)
-            characters_level_stat[1][i + 1][2] = ReadByte(sora_level_stat + 0x5 + 0x10*i + rando_offset)
-            characters_level_stat[2][i + 1][1] = ReadByte(donald_level_stat + 0x4 + 0x10*i + rando_offset)
-            characters_level_stat[2][i + 1][2] = ReadByte(donald_level_stat + 0x5 + 0x10*i + rando_offset)
-            characters_level_stat[3][i + 1][1] = ReadByte(goofy_level_stat + 0x4 + 0x10*i + rando_offset)
-            characters_level_stat[3][i + 1][2] = ReadByte(goofy_level_stat + 0x5 + 0x10*i + rando_offset)
-            characters_level_stat[4][i + 1][1] = ReadByte(mickey_level_stat + 0x4 + 0x10*i + rando_offset)
-            characters_level_stat[4][i + 1][2] = ReadByte(mickey_level_stat + 0x5 + 0x10*i + rando_offset)
-            characters_level_stat[5][i + 1][1] = ReadByte(auron_level_stat + 0x4 + 0x10*i + rando_offset)
-            characters_level_stat[5][i + 1][2] = ReadByte(auron_level_stat + 0x5 + 0x10*i + rando_offset)
-            characters_level_stat[6][i + 1][1] = ReadByte(mulan_level_stat + 0x4 + 0x10*i + rando_offset)
-            characters_level_stat[6][i + 1][2] = ReadByte(mulan_level_stat + 0x5 + 0x10*i + rando_offset)
-            characters_level_stat[7][i + 1][1] = ReadByte(aladdin_level_stat + 0x4 + 0x10*i + rando_offset)
-            characters_level_stat[7][i + 1][2] = ReadByte(aladdin_level_stat + 0x5 + 0x10*i + rando_offset)
-            characters_level_stat[8][i + 1][1] = ReadByte(jack_sparrow_level_stat + 0x4 + 0x10*i + rando_offset)
-            characters_level_stat[8][i + 1][2] = ReadByte(jack_sparrow_level_stat + 0x5 + 0x10*i + rando_offset)
-            characters_level_stat[9][i + 1][1] = ReadByte(beast_level_stat + 0x4 + 0x10*i + rando_offset)
-            characters_level_stat[9][i + 1][2] = ReadByte(beast_level_stat + 0x5 + 0x10*i + rando_offset)
-            characters_level_stat[10][i + 1][1] = ReadByte(jack_skellington_level_stat + 0x4 + 0x10*i + rando_offset)
-            characters_level_stat[10][i + 1][2] = ReadByte(jack_skellington_level_stat + 0x5 + 0x10*i + rando_offset)
-            characters_level_stat[11][i + 1][1] = ReadByte(simba_level_stat + 0x4 + 0x10*i + rando_offset)
-            characters_level_stat[11][i + 1][2] = ReadByte(simba_level_stat + 0x5 + 0x10*i + rando_offset)
-            characters_level_stat[12][i + 1][1] = ReadByte(tron_level_stat + 0x4 + 0x10*i + rando_offset)
-            characters_level_stat[12][i + 1][2] = ReadByte(tron_level_stat + 0x5 + 0x10*i + rando_offset)
-            characters_level_stat[13][i + 1][1] = ReadByte(riku_level_stat + 0x4 + 0x10*i + rando_offset)
-            characters_level_stat[13][i + 1][2] = ReadByte(riku_level_stat + 0x5 + 0x10*i + rando_offset)
+            characters_level_stat[1][i + 1][1] = ReadByte(sora_level_stat + 0x4 + 0x10*i + rando_offset, true)
+            characters_level_stat[1][i + 1][2] = ReadByte(sora_level_stat + 0x5 + 0x10*i + rando_offset, true)
+            characters_level_stat[2][i + 1][1] = ReadByte(donald_level_stat + 0x4 + 0x10*i + rando_offset, true)
+            characters_level_stat[2][i + 1][2] = ReadByte(donald_level_stat + 0x5 + 0x10*i + rando_offset, true)
+            characters_level_stat[3][i + 1][1] = ReadByte(goofy_level_stat + 0x4 + 0x10*i + rando_offset, true)
+            characters_level_stat[3][i + 1][2] = ReadByte(goofy_level_stat + 0x5 + 0x10*i + rando_offset, true)
+            characters_level_stat[4][i + 1][1] = ReadByte(mickey_level_stat + 0x4 + 0x10*i + rando_offset, true)
+            characters_level_stat[4][i + 1][2] = ReadByte(mickey_level_stat + 0x5 + 0x10*i + rando_offset, true)
+            characters_level_stat[5][i + 1][1] = ReadByte(auron_level_stat + 0x4 + 0x10*i + rando_offset, true)
+            characters_level_stat[5][i + 1][2] = ReadByte(auron_level_stat + 0x5 + 0x10*i + rando_offset, true)
+            characters_level_stat[6][i + 1][1] = ReadByte(mulan_level_stat + 0x4 + 0x10*i + rando_offset, true)
+            characters_level_stat[6][i + 1][2] = ReadByte(mulan_level_stat + 0x5 + 0x10*i + rando_offset, true)
+            characters_level_stat[7][i + 1][1] = ReadByte(aladdin_level_stat + 0x4 + 0x10*i + rando_offset, true)
+            characters_level_stat[7][i + 1][2] = ReadByte(aladdin_level_stat + 0x5 + 0x10*i + rando_offset, true)
+            characters_level_stat[8][i + 1][1] = ReadByte(jack_sparrow_level_stat + 0x4 + 0x10*i + rando_offset, true)
+            characters_level_stat[8][i + 1][2] = ReadByte(jack_sparrow_level_stat + 0x5 + 0x10*i + rando_offset, true)
+            characters_level_stat[9][i + 1][1] = ReadByte(beast_level_stat + 0x4 + 0x10*i + rando_offset, true)
+            characters_level_stat[9][i + 1][2] = ReadByte(beast_level_stat + 0x5 + 0x10*i + rando_offset, true)
+            characters_level_stat[10][i + 1][1] = ReadByte(jack_skellington_level_stat + 0x4 + 0x10*i + rando_offset, true)
+            characters_level_stat[10][i + 1][2] = ReadByte(jack_skellington_level_stat + 0x5 + 0x10*i + rando_offset, true)
+            characters_level_stat[11][i + 1][1] = ReadByte(simba_level_stat + 0x4 + 0x10*i + rando_offset, true)
+            characters_level_stat[11][i + 1][2] = ReadByte(simba_level_stat + 0x5 + 0x10*i + rando_offset, true)
+            characters_level_stat[12][i + 1][1] = ReadByte(tron_level_stat + 0x4 + 0x10*i + rando_offset, true)
+            characters_level_stat[12][i + 1][2] = ReadByte(tron_level_stat + 0x5 + 0x10*i + rando_offset, true)
+            characters_level_stat[13][i + 1][1] = ReadByte(riku_level_stat + 0x4 + 0x10*i + rando_offset, true)
+            characters_level_stat[13][i + 1][2] = ReadByte(riku_level_stat + 0x5 + 0x10*i + rando_offset, true)
         end
         if characters_level_stat[1][i + 1][3] == nil then
-            characters_level[1][i + 1][3] = ReadByte(sora_level_stat + 0x6 + 0x10*i + rando_offset)
-            characters_level[2][i + 1][3] = ReadByte(donald_level_stat + 0x6 + 0x10*i + rando_offset)
-            characters_level[3][i + 1][3] = ReadByte(goofy_level_stat + 0x6 + 0x10*i + rando_offset)
-            characters_level[4][i + 1][3] = ReadByte(mickey_level_stat + 0x6 + 0x10*i + rando_offset)
-            characters_level[5][i + 1][3] = ReadByte(auron_level_stat + 0x6 + 0x10*i + rando_offset)
-            characters_level[6][i + 1][3] = ReadByte(mulan_level_stat + 0x6 + 0x10*i + rando_offset)
-            characters_level[7][i + 1][3] = ReadByte(aladdin_level_stat + 0x6 + 0x10*i + rando_offset)
-            characters_level[8][i + 1][3] = ReadByte(jack_sparrow_level_stat + 0x6 + 0x10*i + rando_offset)
-            characters_level[9][i + 1][3] = ReadByte(beast_level_stat + 0x6 + 0x10*i + rando_offset)
-            characters_level[10][i + 1][3] = ReadByte(jack_skellington_level_stat + 0x6 + 0x10*i + rando_offset)
-            characters_level[11][i + 1][3] = ReadByte(simba_level_stat + 0x6 + 0x10*i + rando_offset)
-            characters_level[12][i + 1][3] = ReadByte(tron_level_stat + 0x6 + 0x10*i + rando_offset)
-            characters_level[13][i + 1][3] = ReadByte(riku_level_stat + 0x6 + 0x10*i + rando_offset)
+            characters_level[1][i + 1][3] = ReadByte(sora_level_stat + 0x6 + 0x10*i + rando_offset, true)
+            characters_level[2][i + 1][3] = ReadByte(donald_level_stat + 0x6 + 0x10*i + rando_offset, true)
+            characters_level[3][i + 1][3] = ReadByte(goofy_level_stat + 0x6 + 0x10*i + rando_offset, true)
+            characters_level[4][i + 1][3] = ReadByte(mickey_level_stat + 0x6 + 0x10*i + rando_offset, true)
+            characters_level[5][i + 1][3] = ReadByte(auron_level_stat + 0x6 + 0x10*i + rando_offset, true)
+            characters_level[6][i + 1][3] = ReadByte(mulan_level_stat + 0x6 + 0x10*i + rando_offset, true)
+            characters_level[7][i + 1][3] = ReadByte(aladdin_level_stat + 0x6 + 0x10*i + rando_offset, true)
+            characters_level[8][i + 1][3] = ReadByte(jack_sparrow_level_stat + 0x6 + 0x10*i + rando_offset, true)
+            characters_level[9][i + 1][3] = ReadByte(beast_level_stat + 0x6 + 0x10*i + rando_offset, true)
+            characters_level[10][i + 1][3] = ReadByte(jack_skellington_level_stat + 0x6 + 0x10*i + rando_offset, true)
+            characters_level[11][i + 1][3] = ReadByte(simba_level_stat + 0x6 + 0x10*i + rando_offset, true)
+            characters_level[12][i + 1][3] = ReadByte(tron_level_stat + 0x6 + 0x10*i + rando_offset, true)
+            characters_level[13][i + 1][3] = ReadByte(riku_level_stat + 0x6 + 0x10*i + rando_offset, true)
 
         end
-        WriteByte(sora_level_stat + 0x4 + 0x10*i + rando_offset, 2)
-        WriteByte(sora_level_stat + 0x5 + 0x10*i + rando_offset, 6)
-        WriteByte(donald_level_stat + 0x4 + 0x10*i + rando_offset, 1)
-        WriteByte(donald_level_stat + 0x5 + 0x10*i + rando_offset, 5)
-        WriteByte(goofy_level_stat + 0x4 + 0x10*i + rando_offset, 5)
-        WriteByte(goofy_level_stat + 0x5 + 0x10*i + rando_offset, 0)
-        WriteByte(mickey_level_stat + 0x4 + 0x10*i + rando_offset, 4)
-        WriteByte(mickey_level_stat + 0x5 + 0x10*i + rando_offset, 7)
-        WriteByte(auron_level_stat + 0x4 + 0x10*i + rando_offset, 4)
-        WriteByte(auron_level_stat + 0x5 + 0x10*i + rando_offset, 0)
-        WriteByte(mulan_level_stat + 0x4 + 0x10*i + rando_offset, 4)
-        WriteByte(mulan_level_stat + 0x5 + 0x10*i + rando_offset, 7)
-        WriteByte(aladdin_level_stat + 0x4 + 0x10*i + rando_offset, 4)
-        WriteByte(aladdin_level_stat + 0x5 + 0x10*i + rando_offset, 0)
-        WriteByte(jack_sparrow_level_stat + 0x4 + 0x10*i + rando_offset, 4)
-        WriteByte(jack_sparrow_level_stat + 0x5 + 0x10*i + rando_offset, 0)
-        WriteByte(beast_level_stat + 0x4 + 0x10*i + rando_offset, 4)
-        WriteByte(beast_level_stat + 0x5 + 0x10*i + rando_offset, 0)
-        WriteByte(jack_skellington_level_stat + 0x4 + 0x10*i + rando_offset, 4)
-        WriteByte(jack_skellington_level_stat + 0x5 + 0x10*i + rando_offset, 7)
-        WriteByte(simba_level_stat + 0x4 + 0x10*i + rando_offset, 4)
-        WriteByte(simba_level_stat + 0x5 + 0x10*i + rando_offset, 7)
-        WriteByte(tron_level_stat + 0x4 + 0x10*i + rando_offset, 4)
-        WriteByte(tron_level_stat + 0x5 + 0x10*i + rando_offset, 7)
-        WriteByte(riku_level_stat + 0x4 + 0x10*i + rando_offset, 4)
-        WriteByte(riku_level_stat + 0x5 + 0x10*i + rando_offset, 7)
+        WriteByte(sora_level_stat + 0x4 + 0x10*i + rando_offset, 2, true)
+        WriteByte(sora_level_stat + 0x5 + 0x10*i + rando_offset, 6, true)
+        WriteByte(donald_level_stat + 0x4 + 0x10*i + rando_offset, 1, true)
+        WriteByte(donald_level_stat + 0x5 + 0x10*i + rando_offset, 5, true)
+        WriteByte(goofy_level_stat + 0x4 + 0x10*i + rando_offset, 5, true)
+        WriteByte(goofy_level_stat + 0x5 + 0x10*i + rando_offset, 0, true)
+        WriteByte(mickey_level_stat + 0x4 + 0x10*i + rando_offset, 4, true)
+        WriteByte(mickey_level_stat + 0x5 + 0x10*i + rando_offset, 7, true)
+        WriteByte(auron_level_stat + 0x4 + 0x10*i + rando_offset, 4, true)
+        WriteByte(auron_level_stat + 0x5 + 0x10*i + rando_offset, 0, true)
+        WriteByte(mulan_level_stat + 0x4 + 0x10*i + rando_offset, 4, true)
+        WriteByte(mulan_level_stat + 0x5 + 0x10*i + rando_offset, 7, true)
+        WriteByte(aladdin_level_stat + 0x4 + 0x10*i + rando_offset, 4, true)
+        WriteByte(aladdin_level_stat + 0x5 + 0x10*i + rando_offset, 0, true)
+        WriteByte(jack_sparrow_level_stat + 0x4 + 0x10*i + rando_offset, 4, true)
+        WriteByte(jack_sparrow_level_stat + 0x5 + 0x10*i + rando_offset, 0, true)
+        WriteByte(beast_level_stat + 0x4 + 0x10*i + rando_offset, 4, true)
+        WriteByte(beast_level_stat + 0x5 + 0x10*i + rando_offset, 0, true)
+        WriteByte(jack_skellington_level_stat + 0x4 + 0x10*i + rando_offset, 4, true)
+        WriteByte(jack_skellington_level_stat + 0x5 + 0x10*i + rando_offset, 7, true)
+        WriteByte(simba_level_stat + 0x4 + 0x10*i + rando_offset, 4, true)
+        WriteByte(simba_level_stat + 0x5 + 0x10*i + rando_offset, 7, true)
+        WriteByte(tron_level_stat + 0x4 + 0x10*i + rando_offset, 4, true)
+        WriteByte(tron_level_stat + 0x5 + 0x10*i + rando_offset, 7, true)
+        WriteByte(riku_level_stat + 0x4 + 0x10*i + rando_offset, 4, true)
+        WriteByte(riku_level_stat + 0x5 + 0x10*i + rando_offset, 7, true)
         if not is_zero_defense then
-            WriteByte(sora_level_stat + 0x6 + 0x10*i + rando_offset, 2)
-            WriteByte(donald_level_stat + 0x6 + 0x10*i + rando_offset, 2)
-            WriteByte(goofy_level_stat + 0x6 + 0x10*i + rando_offset, 2)
-            WriteByte(mickey_level_stat + 0x6 + 0x10*i + rando_offset, 4)
-            WriteByte(auron_level_stat + 0x6 + 0x10*i + rando_offset, 5)
-            WriteByte(mulan_level_stat + 0x6 + 0x10*i + rando_offset, 5)
-            WriteByte(aladdin_level_stat + 0x6 + 0x10*i + rando_offset, 5)
-            WriteByte(jack_sparrow_level_stat + 0x6 + 0x10*i + rando_offset, 5)
-            WriteByte(beast_level_stat + 0x6 + 0x10*i + rando_offset, 5)
-            WriteByte(jack_skellington_level_stat + 0x6 + 0x10*i + rando_offset, 4)
-            WriteByte(simba_level_stat + 0x6 + 0x10*i + rando_offset, 4)
-            WriteByte(tron_level_stat + 0x6 + 0x10*i + rando_offset, 4)
-            WriteByte(riku_level_stat + 0x6 + 0x10*i + rando_offset, 4)
+            WriteByte(sora_level_stat + 0x6 + 0x10*i + rando_offset, 2, true)
+            WriteByte(donald_level_stat + 0x6 + 0x10*i + rando_offset, 2, true)
+            WriteByte(goofy_level_stat + 0x6 + 0x10*i + rando_offset, 2, true)
+            WriteByte(mickey_level_stat + 0x6 + 0x10*i + rando_offset, 4, true)
+            WriteByte(auron_level_stat + 0x6 + 0x10*i + rando_offset, 5, true)
+            WriteByte(mulan_level_stat + 0x6 + 0x10*i + rando_offset, 5, true)
+            WriteByte(aladdin_level_stat + 0x6 + 0x10*i + rando_offset, 5, true)
+            WriteByte(jack_sparrow_level_stat + 0x6 + 0x10*i + rando_offset, 5, true)
+            WriteByte(beast_level_stat + 0x6 + 0x10*i + rando_offset, 5, true)
+            WriteByte(jack_skellington_level_stat + 0x6 + 0x10*i + rando_offset, 4, true)
+            WriteByte(simba_level_stat + 0x6 + 0x10*i + rando_offset, 4, true)
+            WriteByte(tron_level_stat + 0x6 + 0x10*i + rando_offset, 4, true)
+            WriteByte(riku_level_stat + 0x6 + 0x10*i + rando_offset, 4, true)
         end
     end
 end
@@ -618,49 +782,49 @@ end
 function update_level_stats()
     if (not is_zero_defense) and (not (characters_level_stat[1][1][3] == nil)) then
         for i = 0, 98 do
-            WriteByte(sora_level_stat + 0x6 + 0x10*i + rando_offset, characters_level_stat[1][i + 1][3])
-            WriteByte(donald_level_stat + 0x6 + 0x10*i + rando_offset, characters_level_stat[2][i + 1][3])
-            WriteByte(goofy_level_stat + 0x6 + 0x10*i + rando_offset, characters_level_stat[3][i + 1][3])
-            WriteByte(mickey_level_stat + 0x6 + 0x10*i + rando_offset, characters_level_stat[4][i + 1][3])
-            WriteByte(auron_level_stat + 0x6 + 0x10*i + rando_offset, characters_level_stat[5][i + 1][3])
-            WriteByte(mulan_level_stat + 0x6 + 0x10*i + rando_offset, characters_level_stat[6][i + 1][3])
-            WriteByte(aladdin_level_stat + 0x6 + 0x10*i + rando_offset, characters_level_stat[7][i + 1][3])
-            WriteByte(jack_sparrow_level_stat + 0x6 + 0x10*i + rando_offset, characters_level_stat[8][i + 1][3])
-            WriteByte(beast_level_stat + 0x6 + 0x10*i + rando_offset, characters_level_stat[9][i + 1][3])
-            WriteByte(jack_skellington_level_stat + 0x6 + 0x10*i + rando_offset, characters_level_stat[10][i + 1][3])
-            WriteByte(simba_level_stat + 0x6 + 0x10*i + rando_offset, characters_level_stat[11][i + 1][3])
-            WriteByte(tron_level_stat + 0x6 + 0x10*i + rando_offset, characters_level_stat[12][i + 1][3])
-            WriteByte(riku_level_stat + 0x6 + 0x10*i + rando_offset, characters_level_stat[13][i + 1][3])
+            WriteByte(sora_level_stat + 0x6 + 0x10*i + rando_offset, characters_level_stat[1][i + 1][3], true)
+            WriteByte(donald_level_stat + 0x6 + 0x10*i + rando_offset, characters_level_stat[2][i + 1][3], true)
+            WriteByte(goofy_level_stat + 0x6 + 0x10*i + rando_offset, characters_level_stat[3][i + 1][3], true)
+            WriteByte(mickey_level_stat + 0x6 + 0x10*i + rando_offset, characters_level_stat[4][i + 1][3], true)
+            WriteByte(auron_level_stat + 0x6 + 0x10*i + rando_offset, characters_level_stat[5][i + 1][3], true)
+            WriteByte(mulan_level_stat + 0x6 + 0x10*i + rando_offset, characters_level_stat[6][i + 1][3], true)
+            WriteByte(aladdin_level_stat + 0x6 + 0x10*i + rando_offset, characters_level_stat[7][i + 1][3], true)
+            WriteByte(jack_sparrow_level_stat + 0x6 + 0x10*i + rando_offset, characters_level_stat[8][i + 1][3], true)
+            WriteByte(beast_level_stat + 0x6 + 0x10*i + rando_offset, characters_level_stat[9][i + 1][3], true)
+            WriteByte(jack_skellington_level_stat + 0x6 + 0x10*i + rando_offset, characters_level_stat[10][i + 1][3], true)
+            WriteByte(simba_level_stat + 0x6 + 0x10*i + rando_offset, characters_level_stat[11][i + 1][3], true)
+            WriteByte(tron_level_stat + 0x6 + 0x10*i + rando_offset, characters_level_stat[12][i + 1][3], true)
+            WriteByte(riku_level_stat + 0x6 + 0x10*i + rando_offset, characters_level_stat[13][i + 1][3], true)
         end
     end
     if (not is_default_status) and (not (characters_level_stat[1][1][1] == nil)) then
         for i = 0, 98 do
-            WriteByte(sora_level_stat + 0x4 + 0x10*i + rando_offset, characters_level_stat[1][i + 1][1])
-            WriteByte(sora_level_stat + 0x5 + 0x10*i + rando_offset, characters_level_stat[1][i + 1][2])
-            WriteByte(donald_level_stat + 0x4 + 0x10*i + rando_offset, characters_level_stat[2][i + 1][1])
-            WriteByte(donald_level_stat + 0x5 + 0x10*i + rando_offset, characters_level_stat[2][i + 1][2])
-            WriteByte(goofy_level_stat + 0x4 + 0x10*i + rando_offset, characters_level_stat[3][i + 1][1])
-            WriteByte(goofy_level_stat + 0x5 + 0x10*i + rando_offset, characters_level_stat[3][i + 1][2])
-            WriteByte(mickey_level_stat + 0x4 + 0x10*i + rando_offset, characters_level_stat[4][i + 1][1])
-            WriteByte(mickey_level_stat + 0x5 + 0x10*i + rando_offset, characters_level_stat[4][i + 1][2])
-            WriteByte(auron_level_stat + 0x4 + 0x10*i + rando_offset, characters_level_stat[5][i + 1][1])
-            WriteByte(auron_level_stat + 0x5 + 0x10*i + rando_offset, characters_level_stat[5][i + 1][2])
-            WriteByte(mulan_level_stat + 0x4 + 0x10*i + rando_offset, characters_level_stat[6][i + 1][1])
-            WriteByte(mulan_level_stat + 0x5 + 0x10*i + rando_offset, characters_level_stat[6][i + 1][2])
-            WriteByte(aladdin_level_stat + 0x4 + 0x10*i + rando_offset, characters_level_stat[7][i + 1][1])
-            WriteByte(aladdin_level_stat + 0x5 + 0x10*i + rando_offset, characters_level_stat[7][i + 1][2])
-            WriteByte(jack_sparrow_level_stat + 0x4 + 0x10*i + rando_offset, characters_level_stat[8][i + 1][1])
-            WriteByte(jack_sparrow_level_stat + 0x5 + 0x10*i + rando_offset, characters_level_stat[8][i + 1][2])
-            WriteByte(beast_level_stat + 0x4 + 0x10*i + rando_offset, characters_level_stat[9][i + 1][1])
-            WriteByte(beast_level_stat + 0x5 + 0x10*i + rando_offset, characters_level_stat[9][i + 1][2])
-            WriteByte(jack_skellington_level_stat + 0x4 + 0x10*i + rando_offset, characters_level_stat[10][i + 1][1])
-            WriteByte(jack_skellington_level_stat + 0x5 + 0x10*i + rando_offset, characters_level_stat[10][i + 1][2])
-            WriteByte(simba_level_stat + 0x4 + 0x10*i + rando_offset, characters_level_stat[11][i + 1][1])
-            WriteByte(simba_level_stat + 0x5 + 0x10*i + rando_offset, characters_level_stat[11][i + 1][2])
-            WriteByte(tron_level_stat + 0x4 + 0x10*i + rando_offset, characters_level_stat[12][i + 1][1])
-            WriteByte(tron_level_stat + 0x5 + 0x10*i + rando_offset, characters_level_stat[12][i + 1][2])
-            WriteByte(riku_level_stat + 0x4 + 0x10*i + rando_offset, characters_level_stat[13][i + 1][1])
-            WriteByte(riku_level_stat + 0x5 + 0x10*i + rando_offset, characters_level_stat[13][i + 1][2])
+            WriteByte(sora_level_stat + 0x4 + 0x10*i + rando_offset, characters_level_stat[1][i + 1][1], true)
+            WriteByte(sora_level_stat + 0x5 + 0x10*i + rando_offset, characters_level_stat[1][i + 1][2], true)
+            WriteByte(donald_level_stat + 0x4 + 0x10*i + rando_offset, characters_level_stat[2][i + 1][1], true)
+            WriteByte(donald_level_stat + 0x5 + 0x10*i + rando_offset, characters_level_stat[2][i + 1][2], true)
+            WriteByte(goofy_level_stat + 0x4 + 0x10*i + rando_offset, characters_level_stat[3][i + 1][1], true)
+            WriteByte(goofy_level_stat + 0x5 + 0x10*i + rando_offset, characters_level_stat[3][i + 1][2], true)
+            WriteByte(mickey_level_stat + 0x4 + 0x10*i + rando_offset, characters_level_stat[4][i + 1][1], true)
+            WriteByte(mickey_level_stat + 0x5 + 0x10*i + rando_offset, characters_level_stat[4][i + 1][2], true)
+            WriteByte(auron_level_stat + 0x4 + 0x10*i + rando_offset, characters_level_stat[5][i + 1][1], true)
+            WriteByte(auron_level_stat + 0x5 + 0x10*i + rando_offset, characters_level_stat[5][i + 1][2], true)
+            WriteByte(mulan_level_stat + 0x4 + 0x10*i + rando_offset, characters_level_stat[6][i + 1][1], true)
+            WriteByte(mulan_level_stat + 0x5 + 0x10*i + rando_offset, characters_level_stat[6][i + 1][2], true)
+            WriteByte(aladdin_level_stat + 0x4 + 0x10*i + rando_offset, characters_level_stat[7][i + 1][1], true)
+            WriteByte(aladdin_level_stat + 0x5 + 0x10*i + rando_offset, characters_level_stat[7][i + 1][2], true)
+            WriteByte(jack_sparrow_level_stat + 0x4 + 0x10*i + rando_offset, characters_level_stat[8][i + 1][1], true)
+            WriteByte(jack_sparrow_level_stat + 0x5 + 0x10*i + rando_offset, characters_level_stat[8][i + 1][2], true)
+            WriteByte(beast_level_stat + 0x4 + 0x10*i + rando_offset, characters_level_stat[9][i + 1][1], true)
+            WriteByte(beast_level_stat + 0x5 + 0x10*i + rando_offset, characters_level_stat[9][i + 1][2], true)
+            WriteByte(jack_skellington_level_stat + 0x4 + 0x10*i + rando_offset, characters_level_stat[10][i + 1][1], true)
+            WriteByte(jack_skellington_level_stat + 0x5 + 0x10*i + rando_offset, characters_level_stat[10][i + 1][2], true)
+            WriteByte(simba_level_stat + 0x4 + 0x10*i + rando_offset, characters_level_stat[11][i + 1][1], true)
+            WriteByte(simba_level_stat + 0x5 + 0x10*i + rando_offset, characters_level_stat[11][i + 1][2], true)
+            WriteByte(tron_level_stat + 0x4 + 0x10*i + rando_offset, characters_level_stat[12][i + 1][1], true)
+            WriteByte(tron_level_stat + 0x5 + 0x10*i + rando_offset, characters_level_stat[12][i + 1][2], true)
+            WriteByte(riku_level_stat + 0x4 + 0x10*i + rando_offset, characters_level_stat[13][i + 1][1], true)
+            WriteByte(riku_level_stat + 0x5 + 0x10*i + rando_offset, characters_level_stat[13][i + 1][2], true)
         end
     end
 end
@@ -799,41 +963,41 @@ end
 
 function apply_no_form()
     if drive_cost[1][1] == nil then
-        drive_cost[1][1] = ReadByte(valor_cost + rando_offset)
-        drive_cost[2][1] = ReadByte(auto_valor_cost + rando_offset)
-        drive_cost[1][2] = ReadByte(wisdom_cost + rando_offset)
-        drive_cost[2][2] = ReadByte(wisdom_cost + rando_offset)
-        drive_cost[1][3] = ReadByte(limit_cost + rando_offset)
-        drive_cost[2][3] = ReadByte(auto_limit_cost + rando_offset)
-        drive_cost[1][4] = ReadByte(master_cost + rando_offset)
-        drive_cost[2][4] = ReadByte(auto_master_cost + rando_offset)
-        drive_cost[1][5] = ReadByte(final_cost + rando_offset)
-        drive_cost[2][5] = ReadByte(auto_final_cost + rando_offset)
+        drive_cost[1][1] = ReadByte(valor_cost + rando_offset, true)
+        drive_cost[2][1] = ReadByte(auto_valor_cost + rando_offset, true)
+        drive_cost[1][2] = ReadByte(wisdom_cost + rando_offset, true)
+        drive_cost[2][2] = ReadByte(wisdom_cost + rando_offset, true)
+        drive_cost[1][3] = ReadByte(limit_cost + rando_offset, true)
+        drive_cost[2][3] = ReadByte(auto_limit_cost + rando_offset, true)
+        drive_cost[1][4] = ReadByte(master_cost + rando_offset, true)
+        drive_cost[2][4] = ReadByte(auto_master_cost + rando_offset, true)
+        drive_cost[1][5] = ReadByte(final_cost + rando_offset, true)
+        drive_cost[2][5] = ReadByte(auto_final_cost + rando_offset, true)
     end
-        WriteByte(valor_cost + rando_offset, 10)
-        WriteByte(auto_valor_cost + rando_offset, 10)
-        WriteByte(wisdom_cost + rando_offset, 10)
-        WriteByte(auto_wisdom_cost + rando_offset, 10)
-        WriteByte(limit_cost + rando_offset, 10)
-        WriteByte(auto_limit_cost + rando_offset, 10)
-        WriteByte(master_cost + rando_offset, 10)
-        WriteByte(auto_master_cost + rando_offset, 10)
-        WriteByte(final_cost + rando_offset, 10)
-        WriteByte(auto_final_cost + rando_offset, 10)
+        WriteByte(valor_cost + rando_offset, 10, true)
+        WriteByte(auto_valor_cost + rando_offset, 10, true)
+        WriteByte(wisdom_cost + rando_offset, 10, true)
+        WriteByte(auto_wisdom_cost + rando_offset, 10, true)
+        WriteByte(limit_cost + rando_offset, 10, true)
+        WriteByte(auto_limit_cost + rando_offset, 10, true)
+        WriteByte(master_cost + rando_offset, 10, true)
+        WriteByte(auto_master_cost + rando_offset, 10, true)
+        WriteByte(final_cost + rando_offset, 10, true)
+        WriteByte(auto_final_cost + rando_offset, 10, true)
 end
 
 function remove_no_form()
     if not (drive_cost[1][1] == nil) then
-        WriteByte(valor_cost + rando_offset, drive_cost[1][1])
-        WriteByte(auto_valor_cost + rando_offset, drive_cost[2][1])
-        WriteByte(wisdom_cost + rando_offset, drive_cost[1][2])
-        WriteByte(auto_wisdom_cost + rando_offset, drive_cost[2][2])
-        WriteByte(limit_cost + rando_offset, drive_cost[1][3])
-        WriteByte(auto_limit_cost + rando_offset, drive_cost[2][3])
-        WriteByte(master_cost + rando_offset, drive_cost[1][4])
-        WriteByte(auto_master_cost + rando_offset, drive_cost[2][4])
-        WriteByte(final_cost + rando_offset, drive_cost[1][5])
-        WriteByte(auto_final_cost + rando_offset, drive_cost[2][5])
+        WriteByte(valor_cost + rando_offset, drive_cost[1][1], true)
+        WriteByte(auto_valor_cost + rando_offset, drive_cost[2][1], true)
+        WriteByte(wisdom_cost + rando_offset, drive_cost[1][2], true)
+        WriteByte(auto_wisdom_cost + rando_offset, drive_cost[2][2], true)
+        WriteByte(limit_cost + rando_offset, drive_cost[1][3], true)
+        WriteByte(auto_limit_cost + rando_offset, drive_cost[2][3], true)
+        WriteByte(master_cost + rando_offset, drive_cost[1][4], true)
+        WriteByte(auto_master_cost + rando_offset, drive_cost[2][4], true)
+        WriteByte(final_cost + rando_offset, drive_cost[1][5], true)
+        WriteByte(auto_final_cost + rando_offset, drive_cost[2][5], true)
     end 
 end
 
@@ -857,23 +1021,23 @@ end
 
 function apply_no_summon()
     if summon_cost[0] == nil then
-        summon_cost[1] = ReadByte(chiken_little_cost + rando_offset)
-        summon_cost[2] = ReadByte(genie_cost + rando_offset)
-        summon_cost[3] = ReadByte(stitch_cost + rando_offset)
-        summon_cost[4] = ReadByte(peter_pan_cost + rando_offset)
+        summon_cost[1] = ReadByte(chiken_little_cost + rando_offset, true)
+        summon_cost[2] = ReadByte(genie_cost + rando_offset, true)
+        summon_cost[3] = ReadByte(stitch_cost + rando_offset, true)
+        summon_cost[4] = ReadByte(peter_pan_cost + rando_offset, true)
     end
-    WriteByte(chiken_little_cost + rando_offset, 10)
-    WriteByte(genie_cost + rando_offset, 10)
-    WriteByte(stitch_cost + rando_offset, 10)
-    WriteByte(peter_pan_cost + rando_offset, 10)
+    WriteByte(chiken_little_cost + rando_offset, 10, true)
+    WriteByte(genie_cost + rando_offset, 10, true)
+    WriteByte(stitch_cost + rando_offset, 10, true)
+    WriteByte(peter_pan_cost + rando_offset, 10, true)
 end
 
 function remove_no_summon()
     if not (summon_cost[1] == nil) then
-        WriteByte(chiken_little_cost + rando_offset, summon_cost[1])
-        WriteByte(genie_cost + rando_offset, summon_cost[2])
-        WriteByte(stitch_cost + rando_offset, summon_cost[3])
-        WriteByte(peter_pan_cost + rando_offset, summon_cost[4])
+        WriteByte(chiken_little_cost + rando_offset, summon_cost[1], true)
+        WriteByte(genie_cost + rando_offset, summon_cost[2], true)
+        WriteByte(stitch_cost + rando_offset, summon_cost[3], true)
+        WriteByte(peter_pan_cost + rando_offset, summon_cost[4], true)
     end
 end
 
