@@ -480,6 +480,7 @@ function _OnFrame()
         end
     end
 end
+end
 
 function toggle_hp_slip()
     if is_hp_slip then
@@ -495,7 +496,6 @@ function toggle_hp_slip()
             ConsolePrint("HP slip enabled")
         end
     end
-end
 end
 
 
