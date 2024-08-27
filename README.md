@@ -7,6 +7,7 @@
 You'll find next to this the codes list and some quality of life features.</p>
 
 <h2>Compatibility</h2>
+<p>WARNING: As the pc version (Steam and EGS) have been uptated this mods currently only work on <code>PCSX2-EX</code> I'll update it later</p>
 <p>Pro codes works on both <code>PC</code> and <code>PCSX2-EX</code> and are fully compatible with the KH2 randomnizer ! Just place the 3 parts of the mod above your seed (don't forget to place forms levels on vanilla or junk during seed creation)</br>
 I didn't test it with other mods but it should be compatible with any mod that don't modify those things:</p>
 <ul>
