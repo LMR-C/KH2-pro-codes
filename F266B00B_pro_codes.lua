@@ -356,9 +356,6 @@ function _OnFrame()
         if ReadShort(input) == L3_R3_square then
             toggle_no_rc()
         end
-        if ReadShort(input) == R3_R1 then
-            toggle_full_ability()
-        end
 
         -- Applying pro codes if active
         if is_no_items.value then
@@ -1029,36 +1026,6 @@ function apply_no_rc()
         end
         if ReadShort(riku_party_stat + 0x54 + 0x2 * i) == 0x81B4 then
             WriteShort(riku_party_stat + 0x54 + 0x2 * i, 0x01B4)
-        end
-    end
-end
-
-function toggle_full_ability()
-    if is_full_ability.value then
-        if not is_code_printed then
-            is_code_printed = true
-            is_full_ability = false
-            ap = ReadByte(sora_party_stat + 0x8)
-            WriteByte(sora_party_stat + 0x8, ap - 13)
-            WriteShort(sora_party_stat + 0xEA, 0x0000)
-            WriteShort(sora_party_stat + 0xEC, 0x0000)
-            WriteShort(sora_party_stat + 0xEE, 0x0000)
-            WriteShort(sora_party_stat + 0xF0, 0x0000)
-            WriteShort(sora_party_stat + 0xF2, 0x0000)
-            ConsolePrint("full movement ability disabled (go into the menu or change room to apply changes)")
-        end
-    else
-        if not is_code_printed then
-            is_code_printed = true
-            is_full_ability.value = true
-            ap = ReadByte(sora_party_stat + 0x8)
-            WriteByte(sora_party_stat + 0x8, ap + 13)
-            WriteShort(sora_party_stat + 0xEA, 0x8060)
-            WriteShort(sora_party_stat + 0xEC, 0x8064)
-            WriteShort(sora_party_stat + 0xEE, 0x8236)
-            WriteShort(sora_party_stat + 0xF0, 0x8068)
-            WriteShort(sora_party_stat + 0xF2, 0x806C)
-            ConsolePrint("full movement ability enabled (go into the menu or change room to apply changes)")
         end
     end
 end
