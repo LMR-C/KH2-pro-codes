@@ -132,20 +132,20 @@ function address_init()
         R3_R1 = 0xF7FB
         R3_L1 = 0xFBFB
     elseif GAME_ID == 0x431219CC and ENGINE_TYPE == 'BACKEND' then --PC
-        if ReadString(0x09A92F0,4) == 'KH2J' then --EGS
-            ConsolePrint("PC version (EGS) detected")
-            Sys3Pointer = 0x2AE5890
-            Btl0Pointer = 0x2AE5898
+        if ReadString(0x9A9330,4) == 'KH2J' then --EGS
+            ConsolePrint("PC version Epic detected")
+            Sys3Pointer = 0x2AE58D0
+            Btl0Pointer = 0x2AE58D8
             Sys3 = ReadLong(Sys3Pointer)
             Btl0 = ReadLong(Btl0Pointer)
-            Save = 0x09A92F0
+            Save = 0x09A9330
             Now = 0x0716DF8
-            battle_state_address = 0x2A10E44
-            pause_status_address = 0x0ABB2B8
-            is_controllable_address = 0x2A16C28
-            input = Now - 0x3970
-            cursor2 = 0x2A103FC
-            sora_unit_stat = 0x2A22FD8
+            battle_state_address = 0x2A10E84
+            pause_status_address = 0x0ABB2F8
+            is_controllable_address = 0x2A16C68
+            input = 0x79C870
+            cursor2 = 0x2A1043C
+            sora_unit_stat = 0x2A23018
             party1_unit_stat = sora_unit_stat - 0x278
             party2_unit_stat = party1_unit_stat - 0x278
             sora_level_stat = Btl0 + 0x25928
@@ -205,20 +205,20 @@ function address_init()
             L3_R3_square = 0x8006
             R3_R1 = 0x804
             R3_L1 = 0x0404
-        elseif ReadString(0x09A9830,4) == 'KH2J' then --Steam Global
+        elseif ReadString(0x9A98B0,4) == 'KH2J' then --Steam Global
             ConsolePrint("PC version Steam detected")
-            Sys3Pointer = 0x2AE5DD0
-            Btl0Pointer = 0x2AE5DD8
+            Sys3Pointer = 0x2AE5E50
+            Btl0Pointer = 0x2AE5E58
             Sys3 = ReadLong(Sys3Pointer)
             Btl0 = ReadLong(Btl0Pointer)
-            Save = 0x09A9830
+            Save = 0x09A98B0
             Now = 0x0717008
-            battle_state_address = 0x2A11384
-            pause_status_address = 0x0ABB7F8
-            is_controllable_address = 0x2A17168
-            input = Now - 0x3970
-            cursor2 = 0x2A1093C
-            sora_unit_stat = 0x2A23518
+            battle_state_address = 0x2A11404
+            pause_status_address = 0x0ABB878
+            is_controllable_address = 0x2A171E8
+            input = 0x79CDF0
+            cursor2 = 0x2A109BC
+            sora_unit_stat = 0x2A23598
             party1_unit_stat = sora_unit_stat - 0x278
             party2_unit_stat = party1_unit_stat - 0x278
             sora_level_stat = Btl0 + 0x25928
