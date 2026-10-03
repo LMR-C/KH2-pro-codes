@@ -1,3 +1,5 @@
+-- TODO: Changer les noms de variables pour les inputs
+-- lire la taille de mémoire des inputs en fonction de la plateforme
 -- global variable initialisation
 -- Mod system
 frame = 0
@@ -61,6 +63,7 @@ end
 function address_init()
     if (GAME_ID == 0xF266B00B or GAME_ID == 0xFAF99301) and ENGINE_TYPE == "ENGINE" then --PCSX2
         ConsolePrint("PS2 version detected")
+        platform = "PS2"
         Sys3Pointer = 0x1C61AF8
         Btl0Pointer = 0x1C61AFC
         Sys3 = ReadLong(Sys3Pointer)
@@ -82,7 +85,7 @@ function address_init()
         mulan_level_stat = Btl0 + 0x2782C
         aladdin_level_stat = Btl0 + 0x27E60
         jack_sparrow_level_stat = Btl0 + 0x28494
-        beast_level_stat = 	Btl0 + 0x28AC8
+        beast_level_stat = Btl0 + 0x28AC8
         jack_skellington_level_stat = Btl0 + 0x290FC
         simba_level_stat = Btl0 + 0x29730
         tron_level_stat = Btl0 + 0x29D64
@@ -118,20 +121,32 @@ function address_init()
         cure1_flag = Save + 0x1D31
         cure2_flag = Save + 0x1D19
         cure3_flag = Save + 0x1D20
-        L3_triangle = 0xEFFD
-        L3_square = 0x7FFD
-        L3_circle = 0xDFFD
-        L3_cross = 0xBFFD
-        L3_L1 = 0xFBFD
-        L3_L2 = 0xFEFD
-        L3_R1 = 0xF7FD
-        L3_R2 = 0xFDFD
-        L3_R3_triangle = 0xEFF9
-        L3_R3_circle = 0xDFF9
-        L3_R3_square = 0x7FF9
-        R3_R1 = 0xF7FB
-        R3_L1 = 0xFBFB
+        input_combination_hp_slip = 0xEFFD
+        input_combination_mp_slip = 0x7FFD
+        input_combination_zero_defense = 0xDFFD
+        input_combination_default_status = 0xBFFD
+        input_combination_no_form = 0xFBFD
+        input_combination_no_summon = 0xFEFD
+        input_combination_no_battle_items = 0xF7FD
+        input_combination_no_cure = 0xFDFD
+        input_combination_no_team_attacks = 0xEFF9
+        input_combination_ability_limit = 0xDFF9
+        input_combination_no_reaction_command = 0x7FF9
+        input_combination_ability_equiped = 0xFBFB
     elseif GAME_ID == 0x431219CC and ENGINE_TYPE == 'BACKEND' then --PC
+        platform = "PC"
+        input_combination_hp_slip = 0x2020400
+        input_combination_mp_slip = 0x4020200
+        input_combination_zero_defense = 0x1020108
+        input_combination_default_status = 0x8020004
+        input_combination_no_form = 0x400820000
+        input_combination_no_summon = 0x600000000
+        input_combination_no_battle_items = 0x800020800
+        input_combination_no_cure = 0x900020000
+        input_combination_no_team_attacks = 0xF08000004
+        input_combination_ability_limit = 0xF04000200
+        input_combination_no_reaction_command = 0xF01000108
+        input_combination_ability_equiped = 0xF00000800
         if ReadString(0x9A9330,4) == 'KH2J' then --EGS
             ConsolePrint("PC version Epic detected")
             Sys3Pointer = 0x2AE58D0
@@ -143,7 +158,7 @@ function address_init()
             battle_state_address = 0x2A10E84
             pause_status_address = 0x0ABB2F8
             is_controllable_address = 0x2A16C68
-            input = 0x79C870
+            input = 0x29FAD70
             cursor2 = 0x2A1043C
             sora_unit_stat = 0x2A23018
             party1_unit_stat = sora_unit_stat - 0x278
@@ -192,19 +207,6 @@ function address_init()
             cure1_flag = Save + 0x1D31
             cure2_flag = Save + 0x1D19
             cure3_flag = Save + 0x1D20
-            L3_triangle = 0x1002
-            L3_square = 0x8002
-            L3_circle = 0x2002
-            L3_cross = 0x4002
-            L3_L1 = 0x402
-            L3_L2 = 0x102
-            L3_R1 = 0x802
-            L3_R2 = 0x202
-            L3_R3_triangle = 0x1006
-            L3_R3_circle = 0x2006
-            L3_R3_square = 0x8006
-            R3_R1 = 0x804
-            R3_L1 = 0x0404
         elseif ReadString(0x9A98B0,4) == 'KH2J' then --Steam Global
             ConsolePrint("PC version Steam detected")
             Sys3Pointer = 0x2AE5E50
@@ -216,7 +218,7 @@ function address_init()
             battle_state_address = 0x2A11404
             pause_status_address = 0x0ABB878
             is_controllable_address = 0x2A171E8
-            input = 0x79CDF0
+            input = 0xBF31A0
             cursor2 = 0x2A109BC
             sora_unit_stat = 0x2A23598
             party1_unit_stat = sora_unit_stat - 0x278
@@ -265,19 +267,6 @@ function address_init()
             cure1_flag = Save + 0x1D31
             cure2_flag = Save + 0x1D19
             cure3_flag = Save + 0x1D20
-            L3_triangle = 0x1002
-            L3_square = 0x8002
-            L3_circle = 0x2002
-            L3_cross = 0x4002
-            L3_L1 = 0x402
-            L3_L2 = 0x102
-            L3_R1 = 0x802
-            L3_R2 = 0x202
-            L3_R3_triangle = 0x1006
-            L3_R3_circle = 0x2006
-            L3_R3_square = 0x8006
-            R3_R1 = 0x804
-            R3_L1 = 0x0404
         end
     end
 end
@@ -292,10 +281,10 @@ function _OnFrame()
         -- left it here just in case the memory map is changed by rando
         -- on day.
         if ReadInt(sora_level_stat, true) > 40 then
-            ConsolePrint("Rando detected")
-            rando_offset = 0x580
+            -- ConsolePrint("Rando detected")
+            rando_offset = 0 -- 0x580
         else
-            ConsolePrint("Vanilla game detected")
+            -- ConsolePrint("Vanilla game detected")
             rando_offset = 0
         end
 
@@ -322,38 +311,39 @@ function _OnFrame()
         -- update states
         reset_mp_state_if_needed()
 
+
         -- toggling codes with input combination
-        if ReadShort(input) == L3_triangle then
+        if read_input(input) == input_combination_hp_slip then
             toggle_hp_slip()
         end
-        if ReadShort(input) == L3_square then
+        if read_input(input) == input_combination_mp_slip then
             toggle_mp_slip()
         end
-        if ReadShort(input) == L3_circle then
+        if read_input(input) == input_combination_zero_defense then
             toggle_zero_defense()
         end
-        if ReadShort(input) == L3_cross then
+        if read_input(input) == input_combination_default_status then
             toggle_default_status()
         end
-        if ReadShort(input) == L3_L1 then
+        if read_input(input) == input_combination_no_form then
             toggle_form()
         end
-        if ReadShort(input) == L3_L2 then
+        if read_input(input) == input_combination_no_summon then
             toggle_no_summon()
         end
-        if ReadShort(input) == L3_R1 then
+        if read_input(input) == input_combination_no_battle_items then
             toggle_no_items()
         end
-        if ReadShort(input) == L3_R2 then
+        if read_input(input) == input_combination_no_cure then
             toggle_no_cure()
         end
-        if ReadShort(input) == L3_R3_triangle then
+        if read_input(input) == input_combination_no_team_attacks then
             toggle_no_team_attack()
         end
-        if ReadShort(input) == L3_R3_circle then
+        if read_input(input) == input_combination_ability_limit then
             toggle_ability_limit()
         end
-        if ReadShort(input) == L3_R3_square then
+        if read_input(input) == input_combination_no_reaction_command then
             toggle_no_rc()
         end
 
@@ -395,7 +385,7 @@ function _OnFrame()
         end
 
         -- for printing ability if requested
-        if ReadShort(input) == R3_L1 then
+        if read_input(input) == input_combination_ability_equiped then
             print_ability()
         end
 
@@ -436,6 +426,14 @@ function print_ability()
             end
         end
         ConsolePrint(ability_count)
+    end
+end
+
+function read_input(input_variable)
+    if platform == "PC" then
+        return ReadLong(input_variable)
+    else
+        return ReadShort(input_variable)
     end
 end
 
